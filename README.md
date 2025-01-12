@@ -64,6 +64,11 @@ O método CRIS-DS consiste pode ser visualizado na figura abaixo:
   <img src="./imagens/CRISP_DS.png" alt="figura 1" />
 </div>
 
+<p style="text-align: center;">
+  <img src="./imagens/CRISP_DS.png" alt="Descrição da Imagem" width="50%">
+</p>
+
+
 O método CRISP-DS consiste em:
 
 1. **Identificar o problema de negócio:** 
@@ -169,16 +174,41 @@ Com o intuito de obter uma melhor visão dos dados numéricos, plotamos as distr
 
 Nesta etapa olhamos para distribuição das variáveis numéricas, algumas conclusões podem ser obtidas:
 
-- Os gráficos de **Tenure** e **EstimatedSalary** apresentam um topo largo, indicando que os valores dessa variáveis estão mais **uniformemente distribuídos** dentro de um certo intervalo. Esta informação indica que não temos um um único valor ou faixa de valores dominante. Quando olhamos com o objetivo de realizar predições, tanto o **Tenure** e **EstimatedSalary** não parecem ser um fator decisivo para o cliente sair ou permanecer.
+- Os gráficos de **Tenure** e **EstimatedSalary** apresentam um topo largo, indicando que os valores dessas variáveis estão mais **uniformemente distribuídos** dentro de um certo intervalo. Esta informação indica que não temos um único valor ou faixa de valores dominante. Quando olhamos com o objetivo de prever o **Churn**, tanto o **Tenure** e **EstimatedSalary** não parecem ser um fator decisivo para o cliente sair ou permanecer.
 
-- Para os gráficos **Age** e **NumOfProducts** mostram picos estreitos, indicando que há faixas especificas de valores com maior concentração de clientes (com idades especificas ou números de produtos). Estas duas variáveis podem ser uteis na analise preditiva. 
+- Para os gráficos **Age** e **NumOfProducts** mostram picos estreitos, indicando que há faixas específicas de valores com maior concentração de clientes (com idades específicas ou números de produtos). Estas duas variáveis podem ser uteis na análise preditiva. 
 
-- Para o gráfico **CreditScore** temos uma distribuição simétrica, indicando que os dados estão próximos de uma distribuição normal. Indicando que a maior parte dos clientes tem pontuações de crédito dentro de uma faixa considerada comum (média e boa). A simetria também indica que não temos uma forte concentração em extremos, como clientes com pontuações muito baixa ou muito alta. Esta variável é importante na analise preditiva, pois clientes com baixo score tem mais dificuldades de acessar serviços ou produtos financeiros, tornando-os mais propensos a abandonar o banco e clientes com altas pontuações podem ser alvos de concorrentes oferecendo melhores condições. Obs.: Por ser um grupo com distribuição simétrica, não será necessário um tratamento tão intenso de outliers.
+- Para o gráfico **CreditScore** temos uma distribuição simétrica, indicando que os dados estão próximos de uma distribuição normal. Indicando que a maioria dos clientes tem pontuações de crédito numa faixa considerada comum (média e boa). A simetria também indica que não temos uma forte concentração em extremos, como clientes com pontuações muito baixa ou muito alta. Esta variável é importante na análise preditiva, pois clientes com baixo score tem mais dificuldades de acessar serviços ou produtos financeiros, tornando-os mais propensos a abandonar o banco e clientes com altas pontuações podem ser alvos de concorrentes oferecendo melhores condições. Obs.: Por ser um grupo com distribuição simétrica, não será necessário um tratamento tão intenso de outliers.
 
 - No gráfico **Balance** temos dois picos principais:
     - Um pico em **0**, provavelmente clientes sem saldo, com contas inativas ou que utilizam o banco apenas para movimentações pontuais;
-    - Um segundo pico em uma faixa de saldo mais alta (próxima de 100.000 a 150.000), indicando que estes clientes provavelmente possuem uma conta de poupança ou investimento.
+    - Um segundo pico numa faixa de saldo mais alta (próxima de 100.000 a 150.000), indicando que estes clientes provavelmente possuem uma conta de poupança ou investimento.
 Temos então um comportamento bimodal, sugerindo que o banco atende dois grupos principais, essa segmentação pode indicar que o banco precisa de estratégias para atrair e engajar os dois grupos:
     - **Clientes com saldo baixo:** Ofertas de incentivos para movimentação e engajamento.
     - **Clientes com saldo alto:** Ofertas de produtos premium ou investimentos.
-Durante a analise preditiva, provavelmente deveremos tratar esses dois segmentos como classes separadas, assim um não mascara o outro. 
+Durante a análise preditiva, provavelmente deveremos tratar esses dois segmentos como classes separadas, assim um não mascara o outro. 
+
+Continuando, os outliers podem influenciar nas análises e no tratamento do modelo preditivo, portanto, vamos buscar identificar os outliers e seus comportamento, podemos ver os gráficos abaixo:
+
+<div style="text-align: center;">
+  <img src="./imagens/outlier_sim.png" alt="figura 5" />
+  <img src="./imagens/outlier_nao.png" alt="figura 6" />
+</div>
+
+Podemos observar que para boa parte dos variáveis, não temos muitos outliers, contudo a variável **Age** é a variável que apresenta mais Outliers. Por hora, não iremos tratar os outliers, iremos treinar o modelo com esses outliers e veremos qual o comportamento do modelo para esses outliers, podemos voltar aqui se necessário e avaliar como o modelo fica sem os outliers.
+
+Outro ponto é que notamos é a média e a media são bastante semelhantes como já havíamos comentado, apenas a variável **Balance** que possui um ligeira diferenciação.
+
+Por fim, analisamos também as correlações entre todas as variáveis, o resultado pode ser visto na figura abaixo:
+
+<div style="text-align: center;">
+  <img src="./imagens/correlacao.png" alt="figura 7" />
+</div>
+
+Podemos notar que os pares de variáveis com maior correlação são:
+
+- **(Balance, Geography)**
+- **(NumOfProducts, Balance)**
+- **(Exited, Age)**
+
+É importante ressaltar que aqui não diferenciamos homens de mulheres, talvez cabe separa esses dois e ver se existe uma correlação maior se considerarmos apenas mulheres ou homens. O mesmo vale para variável **Geography**.
