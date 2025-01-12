@@ -60,12 +60,8 @@ Vamos aplicar o método CRISP-DS que é uma variável do método CRISP-DM (Cross
 
 O método CRIS-DS consiste pode ser visualizado na figura abaixo:
 
-<div style="text-align: center;">
-  <img src="./imagens/CRISP_DS.png" alt="figura 1" />
-</div>
-
-<p style="text-align: center;">
-  <img src="./imagens/CRISP_DS.png" alt="Descrição da Imagem" width="50%">
+<p align="center" width="100%">
+    <img width="60%" src="./imagens/CRISP_DS.png">
 </p>
 
 
