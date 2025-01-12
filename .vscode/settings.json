@@ -1,0 +1,13 @@
+{
+    "cSpell.words": [
+        "boxplots",
+        "Pakman",
+        "scatterplots"
+    ],
+    "languageToolLinter.languageTool.ignoredWordsInWorkspace": [
+        "crisp",
+        "lás em",
+        "predictedvalues",
+        "rownumber"
+    ]
+}
