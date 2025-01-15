@@ -1,9 +1,13 @@
 {
     "cSpell.words": [
         "boxplots",
+        "calib",
         "hiperparâmetros",
+        "metrica",
+        "mlflow",
         "Pakman",
-        "scatterplots"
+        "scatterplots",
+        "variavel"
     ],
     "languageToolLinter.languageTool.ignoredWordsInWorkspace": [
         "crisp",
