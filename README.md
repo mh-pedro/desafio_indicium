@@ -170,7 +170,7 @@ Com o intuito de obter uma melhor visão dos dados numéricos, plotamos as distr
 
 Nesta etapa olhamos para distribuição das variáveis numéricas, algumas conclusões podem ser obtidas:
 
-- Os gráficos de **Tenure** e **EstimatedSalary** apresentam um topo largo, indicando que os valores dessas variáveis estão mais **uniformemente distribuídos** dentro de um certo intervalo. Esta informação indica que não temos um único valor ou faixa de valores dominante. Quando olhamos com o objetivo de prever o **Churn**, tanto o **Tenure** e **EstimatedSalary** não parecem ser um fator decisivo para o cliente sair ou permanecer.
+- Os gráficos de **Tenure** e **EstimatedSalary** apresentam um topo largo, indicando que os valores dessas variáveis estão mais **uniformemente distribuídos** dentro de um certo intervalo. Esta informação indica que não temos um único valor ou faixa de valores dominante. Quando olhamos visando prever o **Churn**, tanto o **Tenure** e **EstimatedSalary** não parecem ser um fator decisivo para o cliente sair ou permanecer.
 
 - Para os gráficos **Age** e **NumOfProducts** mostram picos estreitos, indicando que há faixas específicas de valores com maior concentração de clientes (com idades específicas ou números de produtos). Estas duas variáveis podem ser uteis na análise preditiva. 
 
@@ -184,7 +184,7 @@ Temos então um comportamento bimodal, sugerindo que o banco atende dois grupos 
     - **Clientes com saldo alto:** Ofertas de produtos premium ou investimentos.
 Durante a análise preditiva, provavelmente deveremos tratar esses dois segmentos como classes separadas, assim um não mascara o outro. 
 
-Continuando, os outliers podem influenciar nas análises e no tratamento do modelo preditivo, portanto, vamos buscar identificar os outliers e seus comportamento, podemos ver os gráficos abaixo:
+Continuando, os outliers podem influenciar nas análises e no tratamento do modelo preditivo, portanto, vamos buscar identificar os outliers e os seus comportamento, podemos ver os gráficos abaixo:
 
 <div style="text-align: center;">
   <img src="./imagens/outlier_sim.png" alt="figura 5" />
@@ -193,7 +193,7 @@ Continuando, os outliers podem influenciar nas análises e no tratamento do mode
 
 Podemos observar que para boa parte dos variáveis, não temos muitos outliers, contudo a variável **Age** é a variável que apresenta mais Outliers. Por hora, não iremos tratar os outliers, iremos treinar o modelo com esses outliers e veremos qual o comportamento do modelo para esses outliers, podemos voltar aqui se necessário e avaliar como o modelo fica sem os outliers.
 
-Outro ponto é que notamos é a média e a media são bastante semelhantes como já havíamos comentado, apenas a variável **Balance** que possui um ligeira diferenciação.
+Outro ponto é que notamos, a média e a mediana são bastante semelhantes como já havíamos comentado, apenas a variável **Balance** que possui uma ligeiraa diferenciação.
 
 Por fim, analisamos também as correlações entre todas as variáveis, o resultado pode ser visto na figura abaixo:
 
@@ -211,7 +211,7 @@ Podemos notar que os pares de variáveis com maior correlação são:
 
 ## Parte 3 - Preparação dos Dados para modelagem:
 
-Após ganhado entendimento dos dados, vamos iniciar nossa fase de preparação dos dados para modelagem. É agora que vamos remover os dados que não são necessários, limpeza, normalização e organização dos dados.
+Após ganhado entendimento dos dados, vamos iniciar a nossa fase de preparação dos dados para modelagem. É agora que vamos remover os dados que não são necessários, limpeza, normalização e organização dos dados.
 
 Temos dois bancos de dados, o banco de treino **Abandono_clientes.csv** e **Abandono_teste.csv**. Durante toda essa fase iremos trabalhar apenas com o primeiro banco.
 
@@ -219,7 +219,7 @@ Iniciamos realizando a separação dos dados da seguinte forma:
 
 - 7000 amostras de dados ("`X_train`", "`y_train`") para treinar o modelo;
 - 1000 amostras de dados ("`X_test`", "`y_test`") para avaliar o desempenho do modelo em dados "não vistos" no treinamento;
-- 500 amostras de dados ("`X_calib`"`y_calib`") para calibração em dados "não vistos" no treinamento;
+- 500 amostras de dados ("`X_calib`"`y_calib`") para calibração em dados "não vistos" no treino;
 - 1000 amostras restantes ("`X_new`"`y_new`") para etapa de previsão conforme e para sua avaliação.
 
 O intuito de separamos o banco em quatro amostras é termos um conjunto de treino, um de teste, e dois outros conjuntos que podem ser usados para calibragem. Inicialmente essa será nossa distribuição, a depender dos resultados, podemos voltar e alterar estes valores
@@ -236,7 +236,7 @@ O intuito de criarmos uma baseline é para termos um ponto de partida ao avaliar
 
 - Baseline Ponderado: $0.6712$ ou $67.12\%$
 
-Note que nossa Baseline Ponderada é de $67,12\%$ e a ZeroR Baseline é de $79,26\%$ estes valores serão os valores de avaliação inicial.
+Note que a nossa Baseline Ponderada é de $67,12\%$ e a ZeroR Baseline é de $79,26\%$ estes valores serão os valores de avaliação inicial.
 
 ### Parte 3.2 - Transformação nos dados
 
@@ -244,7 +244,7 @@ Vamos fazer a separação das variáveis numéricas e categóricas. Decidi adici
 
 As transformações que vamos fazer são:
 
-- **StandardScaler** para padronizar os valores, inicialmente não irei tratar os outliers, desejo ver como os modelos atual considerando esses valores, também não irei o min-max scaler para os valores que não possuem outliers.
+- **StandardScaler** para padronizar os valores, inicialmente não irei tratar os outliers, desejo ver como os modelos atuais considerando esses valores, também não irei o min-max scaler para os valores que não possuem outliers.
 - **OneHotEncoder** para transformar as variáveis categóricas do tipo `Gender` e `Geography` e valores binários. 
 - **RobustScaler** para tratar os outliers.
 
@@ -259,7 +259,7 @@ Iremos utilizar alguns dos mais comuns modelos de aprendizado de máquina, são 
 - **DECISION TREE:** Baseado em divisões recursivas de dados em nós.
 - **KNeighbors:** Classifica pontos com base nos vizinhos mais próximos.
 
-- **SCV - Support Vector Classifier :** 
+- **SCV - Support Vector Classifier:** 
 - **Random Forest:** Combina várias árvores de decisão (ensemble) para reduzir overfitting
 
 - **XGB:** Algoritmo otimizado de gradient boosting.
@@ -282,9 +282,9 @@ Os três melhores modelos foram o `GradientBoostingClassifier` seguido de `XGBCl
 
 ## Parte 5 Avaliação
 
-Nesta fase iremos buscar ajustar os modelos anteriores buscando quais são os melhores hiperparâmetros para cada um deles, assim como também ir e avaliar os seus resultados. Infelizmente não houveram melhoras significativas entre as versões iniciais, o motivo é devido os dados ja estarem bem tratados, contendo poucos ou nenhum outliers. 
+Nesta fase iremos buscar ajustar os modelos anteriores buscando quais são os melhores hiperparâmetros para cada um deles, assim como também ir e avaliar os seus resultados. Infelizmente não houve melhoras significativas entre as versões iniciais, o motivo é devido os dados ja estarem bem tratados, contendo poucos ou nenhum outliers. 
 
-Contudo, quando avaliamos os modelos com todos os dados, notamos que o Random Forest consegue melhorar muito sua capacidade. Este modelo consegue tirar proveito do aumento da base de dados, já os outros dois modelos não tiveram um aumento significativo, os resultados podem ser comparados a seguir:
+Contudo, quando avaliamos os modelos com todos os dados, notamos que o Random Forest consegue melhorar muito a sua capacidade. Este modelo consegue tirar proveito do aumento da base de dados, já os outros dois modelos não tiveram um aumento significativo, os resultados podem ser comparados a seguir:
 
 <div style="text-align: center;">
   <img src="./imagens/modelos_resultados_finais.png" alt="figura 9" />
@@ -298,7 +298,7 @@ Iniciamos com uma baseline de $67.12\%$, obtendo $87.63\%$ ao usar os melhores h
 ### Parte 6.1 - MlFlow
 Nesta ultima fase foi criar uma versão em script com o melhor modelo, salvo na pasta `src` como o nome `train_RF.py`. Utilizamos dos recursos do MlFlow para criarmos um cenário mais próximo de uma empresa. 
 
-Foi criado environment chamado `mlflow_env` que irá atuar como o nosso servidor. Dentro do ambiente do Mlflow, criamos um modelo chamado **Churn-Abandono** e nosso primeiro experimento **churn_pedro_indicium**
+Foi criado environment chamado `mlflow_env` que irá atuar como o nosso servidor. Dentro do ambiente do Mlflow, criamos um modelo chamado **Churn-Abandono** e a nossa primeira experiência **churn_pedro_indicium**
 
 <div style="text-align: center;">
   <img src="./imagens/mlflow_create_model.png" alt="figura 9" />
