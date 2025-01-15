@@ -14,5 +14,6 @@
         "lás em",
         "predictedvalues",
         "rownumber"
-    ]
+    ],
+    "languageToolLinter.languageTool.disabledCategories": "LOOSE_ACCENTS,STYLE,TYPOS"
 }
