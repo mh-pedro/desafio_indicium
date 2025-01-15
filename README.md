@@ -208,3 +208,114 @@ Podemos notar que os pares de variáveis com maior correlação são:
 - **(Exited, Age)**
 
 É importante ressaltar que aqui não diferenciamos homens de mulheres, talvez cabe separa esses dois e ver se existe uma correlação maior se considerarmos apenas mulheres ou homens. O mesmo vale para variável **Geography**.
+
+## Parte 3 - Preparação dos Dados para modelagem:
+
+Após ganhado entendimento dos dados, vamos iniciar nossa fase de preparação dos dados para modelagem. É agora que vamos remover os dados que não são necessários, limpeza, normalização e organização dos dados.
+
+Temos dois bancos de dados, o banco de treino **Abandono_clientes.csv** e **Abandono_teste.csv**. Durante toda essa fase iremos trabalhar apenas com o primeiro banco.
+
+Iniciamos realizando a separação dos dados da seguinte forma:
+
+- 7000 amostras de dados ("`X_train`", "`y_train`") para treinar o modelo;
+- 1000 amostras de dados ("`X_test`", "`y_test`") para avaliar o desempenho do modelo em dados "não vistos" no treinamento;
+- 500 amostras de dados ("`X_calib`"`y_calib`") para calibração em dados "não vistos" no treinamento;
+- 1000 amostras restantes ("`X_new`"`y_new`") para etapa de previsão conforme e para sua avaliação.
+
+O intuito de separamos o banco em quatro amostras é termos um conjunto de treino, um de teste, e dois outros conjuntos que podem ser usados para calibragem. Inicialmente essa será nossa distribuição, a depender dos resultados, podemos voltar e alterar estes valores
+
+### Parte 3.1 - Baseline
+
+O intuito de criarmos uma baseline é para termos um ponto de partida ao avaliar o desempenho do nosso modelo. Iremos utilizar uma métrica que faz uso de Classificador de taxa aleatória (estimativa ponderada), para ver mais acesse o [artigo](https://towardsdatascience.com/calculating-a-baseline-accuracy-for-a-classification-model-a4b342ceb88f). Desta forma teremos a ZeroR baseline que a taxa mais frequente e a Random Rate (Baseline Ponderada) que é construída a seguir.
+
+- Proporção da Classe Minoritária (Exited = 1): $0.2074$
+- Proporção da Classe Majoritária (Exited = 0): $0.7926$
+
+- Odds de Adivinhar Corretamente a Classe Minoritária: $0.20742857142857143^2 = 0.0430$
+- Odds de Adivinhar Corretamente a Classe Majoritária: $0.7925714285714286^2 = 0.6282$
+
+- Baseline Ponderado: $0.6712$ ou $67.12\%$
+
+Note que nossa Baseline Ponderada é de $67,12\%$ e a ZeroR Baseline é de $79,26\%$ estes valores serão os valores de avaliação inicial.
+
+### Parte 3.2 - Transformação nos dados
+
+Vamos fazer a separação das variáveis numéricas e categóricas. Decidi adicionar `HasCrCard`, `IsActiveMember` como variáveis categóricas, mesmo sendo números. No futuro posso voltar aqui e rever esta decisão. 
+
+As transformações que vamos fazer são:
+
+- **StandardScaler** para padronizar os valores, inicialmente não irei tratar os outliers, desejo ver como os modelos atual considerando esses valores, também não irei o min-max scaler para os valores que não possuem outliers.
+- **OneHotEncoder** para transformar as variáveis categóricas do tipo `Gender` e `Geography` e valores binários. 
+- **RobustScaler** para tratar os outliers.
+
+Concluímos aqui a nossa fase de preparação dos dados para modelagem, vamos iniciar a fase 4.
+
+## Parte 4 - Modelagem
+
+Iremos utilizar alguns dos mais comuns modelos de aprendizado de máquina, são eles:
+
+- **LogisticRegression:** Um classificador de regressão logística, geralmente utilizado para problemas de classificação binaria.
+
+- **DECISION TREE:** Baseado em divisões recursivas de dados em nós.
+- **KNeighbors:** Classifica pontos com base nos vizinhos mais próximos.
+
+- **SCV - Support Vector Classifier :** 
+- **Random Forest:** Combina várias árvores de decisão (ensemble) para reduzir overfitting
+
+- **XGB:** Algoritmo otimizado de gradient boosting.
+
+- **AdaBoost:** Modelo ensemble que ajusta o peso de classificadores fracos.
+- **ExtraTrees:** Variante do Random Forest com maior aleatoriedade na seleção de divisões.
+- **GradientBoosting:** Modelo ensemble que constrói árvores sequencialmente para corrigir erros.
+
+Iremos identificar quais aqueles que estão acima da nossa baseline, posteriormente, iremos selecionar os 3 melhores comparando a acurácia e a F1-Score entre eles.
+
+Realizamos esta fase inicialmente usando apenas duas transformações: StandardScaler e OneHotEncoder. Posteriormente, usando o RobustScaler.  Adicionar o RobustScaler para tratar os outliers não mudou significativamente o desempenho dos modelos. 
+
+Os resultados iniciais podem são exibidos a seguir:
+
+<div style="text-align: center;">
+  <img src="./imagens/modelos_resultados_inciais.png" alt="figura 7" />
+</div>
+
+Os três melhores modelos foram o `GradientBoostingClassifier` seguido de `XGBClassifier` e `RandomForestClassifier`. Ambos tiveram a melhor acurácia, mas também os melhores valores de F1-Score na classe minoritária.
+
+## Parte 5 Avaliação
+
+Nesta fase iremos buscar ajustar os modelos anteriores buscando quais são os melhores hiperparâmetros para cada um deles, assim como também ir e avaliar os seus resultados. Infelizmente não houveram melhoras significativas entre as versões iniciais, o motivo é devido os dados ja estarem bem tratados, contendo poucos ou nenhum outliers. 
+
+Contudo, quando avaliamos os modelos com todos os dados, notamos que o Random Forest consegue melhorar muito sua capacidade. Este modelo consegue tirar proveito do aumento da base de dados, já os outros dois modelos não tiveram um aumento significativo, os resultados podem ser comparados a seguir:
+
+<div style="text-align: center;">
+  <img src="./imagens/modelos_resultados_finais.png" alt="figura 9" />
+</div>
+
+É importante notar também que ao usar todo o banco de dados, conseguimos melhorar as previsões da Classe $1$, o que é um ótimo resultado. 
+Iniciamos com uma baseline de $67.12\%$, obtendo $87.63\%$ ao usar os melhores hiperparâmetros e agora com toda a base de dados chegamos em $93\%$ de acurácia e $91\%$ de F1-Score na classe minoritária.
+
+## Parte 6 - Aplicação 
+
+### Parte 6.1 - MlFlow
+Nesta ultima fase foi criar uma versão em script com o melhor modelo, salvo na pasta `src` como o nome `train_RF.py`. Utilizamos dos recursos do MlFlow para criarmos um cenário mais próximo de uma empresa. 
+
+Foi criado environment chamado `mlflow_env` que irá atuar como o nosso servidor. Dentro do ambiente do Mlflow, criamos um modelo chamado **Churn-Abandono** e nosso primeiro experimento **churn_pedro_indicium**
+
+<div style="text-align: center;">
+  <img src="./imagens/mlflow_create_model.png" alt="figura 9" />
+   <img src="./imagens/mlflow_create_exp.png" alt="figura 9" />
+</div>
+
+Note que temos duas runs, uma para os hiperparâmetros e outra run na qual o modelo treinou com todos os dados. 
+
+Em seguida podemos registar o modelo que escolhemos, no caso o `RandomForest_com_todos_os_dados`:
+<div style="text-align: center;">
+  <img src="./imagens/mlflow_registro.png" alt="figura 9" />
+</div>
+
+Em seguida, colocamos o modelo para produção:
+<div style="text-align: center;">
+  <img src="./imagens/mlflow_production.png" alt="figura 9" />
+</div>
+
+### Parte 6.2 - Teste final
+
