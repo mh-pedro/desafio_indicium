@@ -283,6 +283,7 @@ Os resultados iniciais são exibidos a seguir:
 
 Os três melhores modelos foram o `GradientBoostingClassifier` seguido de `XGBClassifier` e `RandomForestClassifier`. Ambos tiveram a melhor acurácia, mas também os melhores valores de F1-Score na classe minoritária.
 
+
 ## Parte 5 Avaliação
 
 Nesta fase iremos buscar ajustar os modelos anteriores buscando quais são os melhores hiperparâmetros para cada um deles, assim como também avaliar os seus resultados. Infelizmente, não houve melhoras significativas entre as versões iniciais. O motivo é devido os dados ja estarem bem tratados, contendo poucos ou nenhum outliers. 
@@ -308,7 +309,80 @@ Observe que para os modelos Gradient Boosting e XGBoost, a matriz de confusão �
 Já o modelo Random Forest, tem um baixo número de Falso Positivos na Classe $0$ e o número de Falso Negativos na Classe $1$ também é bem menor ao compararmos com os outros modelos.
 
 Recapitulando de onde partirmos e até onde chegamos. Iniciamos com uma baseline de $67.12\%$, obtendo $87.63\%$ ao usar os melhores hiperparâmetros e agora com toda a base de dados chegamos em $93\%$ de acurácia e $91\%$ de F1-Score na classe minoritária para o modelo `RandomForestClassifier`, o que nos leva a escolher este modelo.
+### Parte 5.1 - Resultado financeiro (Modelo Random Forest)
 
+Para entendermos o impacto do nosso modelo na saúde da empresa, iremos avaliar como o modelo performa em termos de resultados financeiros na base de teste.
+
+Iremos tratar de uma situação simplificada da vida de um banco. Sabemos que toda empresa possui **custo** e **lucro** que impactam nas diretrizes. Com base nas variáveis que temos, podemos identificar alguns custos e lucros para o banco, são elas:
+
+- Número de Produtos:
+    - Cada produto gera um lucro médio de $\$50$ por mês.
+    - O custo de manutenção de cada produto é $\$10$ por mês.
+
+- Cartão de Crédito:
+    - Receita de $\$20$ por mês em taxas de intercâmbio.
+    - Receita adicional de $\$15$ por mês com juros médios.
+    - Custo de manutenção do cartão é $\$5$ por mês.
+
+- Saldo Médio na Conta:
+    - O banco utiliza o saldo para empréstimos com uma margem de lucro de $3\%$ ao mês.
+    - O custo operacional associado ao saldo é $1\%$ ao mês.
+
+- Estimativa de Salário:
+    - Clientes convertem $10\%$ do salário em produtos financeiros que geram o mesmo lucro médio de $\$50$ por produto.
+
+Essas estimativas são de exemplificação. Contudo, poderíamos obter com o time financeiro os valores mais precisos. 
+
+Podemos, calcular o lucro e o custo por cliente:
+
+- Lucro_prod = Num_pro X (Lucro_prod - Cust_prod)
+- Lucro_cr = (Receita_taxa_cr + Receita_juros_cr) - Custo_cr
+- Lucro_saldo = Saldo X ( Margem_lucro - Custo_oper) 
+- Lucro_conv_salario = (salario X tax_conversao) X Lucro_prod
+
+Vamos assumir os seguintes valores para o nosso exemplo:
+<center>
+
+| **Parâmetro**                | **Valor**     |
+|------------------------------|---------------|
+| Margem de lucro sobre o saldo         | 0.03 (3%)     |
+| Custo operacional sobre o saldo       | 0.01 (1%)     |
+| Taxa de conversão do salário em produtos | 0.1 (10%)     |
+| Lucro por produto                      | $50           |
+| Custo por produto                      | $10           |
+| Receita por taxas de cartão            | $20           |
+| Receita por juros de cartão            | $15           |
+| Custo de manutenção do cartão          | $5            |
+| Custo de retenção por cliente          | $50           |
+
+</center>
+
+Após calcular o lucro por cliente e o lucro total, identificamos os clientes:
+
+- **True Positivo (TP):** Clientes em risco corretamente identificados.
+
+- **False Positivo (FP):** Clientes que não estão em risco, mas o modelo previu que estavam em risco.
+- **False Negativo (FN):** Clientes em risco, mas o modelo não os identificou.
+
+- **True Negativo:** Clientes que não estavam em risco e foram corretamente identificados.
+
+Cálculos por FP, FN e TP:
+
+- Custo por FP = Num_FP * Custo_de_rentenção
+- Perda por FN = soma_de_todo_lucro_FN 
+- Ganho por TP = soma_de_todo_lucro_TP - Num_TP * Custo_de_rentenção
+- Lucro total = Ganho por TP - Custo por FP - Perda por FN
+
+<div style="text-align: center;">
+  <img src="./imagens/res_financeiro.png" alt="figura 9" />
+</div>
+
+Chegamos ao final do resultado financeiro. Esta seção nos mostrou o papel importante de termos um modelo preditivo.
+
+- A maioria do custo vem dos clientes que foram identificados erroneamente como clientes que iriam permanecer no banco, mas deixaram a empresa. No nosso exemplo, este valor é de $\$27$ milhões.
+- No nosso modelo, tivemos apenas 5 Falso Positivo, clientes que foram identificados que iriam ficar no banco, mas deixaram. No qual foram gastos $\$50$ por cliente em campanha para manter estes clientes, totalizando $\$250$.
+- Ganho por Clientes em risco identificados, subtraindo o lucro desses clientes pelo custo em campanha, chegamos ao valor de $\$108$ milhões.
+- O lucro estimado da empresa chegou por volta de $\$80$ milhões, nos mostrando o impacto de usarmos uma rede neural.
 ## Parte 6 - Aplicação 
 
 ### Parte 6.1 - MlFlow
@@ -338,9 +412,9 @@ E chegamos ao fim desta subfase.
 
 ### Parte 6.2 - Teste final
 
-Finalmente chegamos ao momento decisivo deste desafio, onde o nosso modelo vai ser aplicado em um novo dataset, contendo 1000 linhas e 12 colunas. É importante ressaltar que toda a jornada é importante para este momento. 
+Finalmente chegamos ao momento decisivo deste desafio, onde o nosso modelo vai ser aplicado num novo dataset, contendo 1000 linhas e 12 colunas. É importante ressaltar que toda a jornada é importante para este momento. 
 
-Agora vamos ver o desempenho do nosso modelo em um novo dataset.
+Agora vamos ver o desempenho do nosso modelo num novo dataset.
 
 Criamos um script [test_RF](src/test_RF.py) com o nosso modelo que realiza a previsão, os resultados das predições podem ser acessadas em [Abandono_clintes_final](./data/Abandono_clientes_final.csv). 
 
@@ -352,7 +426,6 @@ Visualizando distribuição das previsões:
 Estes valores indicam-nos que o nosso modelo por mais que realize as predições, é possível notar que para classe majoritária (Classe $0$), mais de $50\%$ das predições foram feitas com uma probabilidade entre $90\%$ à $100\%$. Já na classe minoritária, não temos o mesmo cenário. Cada intervalo de $10\%$ representam por volta de $20\%$ dos dados previsto, o que nos levar a concluir que o nosso modelo ainda precisa de ajustes.
 
 Outra métrica interessante para analisar é a entropia, para este modelo, a entropia média das previsões é de $0.37$. Este valor nos indica a incerteza das previsões, quanto mais próximo de $0$ mais certo o modelo, o nosso valor está abaixo do $0.5$, indicando que a maioria das previsões tem probabilidades longe de $0.5$, indicando confiança, contudo este valor nos sugere que o modelo ainda precisa ser aprimorado.
-
 
 # Conclusão 
 
@@ -372,3 +445,11 @@ Há ainda diversos pontos que podem ser melhorado no modelo, como por exemplo:
 
 Resumidamente, nesta primeira versão do modelo, julgo que poderíamos colocar em produção e ver como o modelo se comporta e no decorrer implementar as melhorias necessárias. Partimos com uma baseline de $67.12\%$, obtendo $87.63\%$ ao usar os melhores hiperparâmetros, por fim com toda a base de dados chegamos em $93\%$ de acurácia e $91\%$ de F1-Score na classe. Por fim, chegamos a uma taxa de Churn de ~$12\%$ este valor nos diz que devemos buscar manter os clientes, antes de realizarmos uma expansão da empresa.
 
+
+
+
+# Contato
+
+- [Linkedin](https://www.linkedin.com/in/mhpedro/)
+- [GitHub](https://github.com/Mhpedro)
+- [Gmail](ircefasjp@gmail.com)
