@@ -1,13 +1,24 @@
 {
     "cSpell.words": [
+        "barplot",
         "boxplots",
         "calib",
+        "criterio",
+        "cust",
+        "fontsize",
+        "fontweight",
+        "geograf",
+        "gini",
         "hiperparâmetros",
         "metrica",
         "mlflow",
         "Pakman",
+        "proporcao",
+        "rowspan",
         "scatterplots",
-        "variavel"
+        "variavel",
+        "xlabel",
+        "xticklabels"
     ],
     "languageToolLinter.languageTool.ignoredWordsInWorkspace": [
         "crisp",
@@ -15,5 +26,5 @@
         "predictedvalues",
         "rownumber"
     ],
-    "languageToolLinter.languageTool.disabledCategories": "LOOSE_ACCENTS,STYLE,TYPOS"
+    "languageToolLinter.languageTool.disabledCategories": "BRASILEIRISMO_TIMES,LOOSE_ACCENTS,STYLE,TYPOS"
 }
