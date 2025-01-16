@@ -295,7 +295,7 @@ Contudo, quando avaliamos os modelos com todos os dados, notamos que o Random Fo
 
 Também podemos comprar os modelos por meio da matriz de confusão, permitindo entender como as previsões feitas pelo modelo correspondem às classes reais dos dados. Para os três modelos trabalhados nesta fase, as matrizes de confusão, podem ser comparadas a seguir:
 
-<p float="left">
+<p lign="center" width="100%", float="left">
   <div style="text-align: center;">
   <img src="./imagens/matriz_conf_RF.png" width="200" />
   <img src="./imagens/matriz_conf_GB.png" width="200" /> 
@@ -370,5 +370,5 @@ Há ainda diversos pontos que podem ser melhorado no modelo, como por exemplo:
 
   - **Desbalanceamento das classes:** O desbalanceamento das classes alvo pode ter afetado significativamente o nosso modelo. Uma forma de lidar, seria utilizar o Undersampling, para deduzir o número de observações da classe majoritária e aumentar o número de observações da classe minoritária. Ao contrário do Undersampling, poderíamos criar dados sinteticamente por meio das observações da classe minoritária por meio do Oversampling, tais técnicas podem serem vistas em [Dados Desbalanceados — O que são e como lidar com eles](https://medium.com/turing-talks/dados-desbalanceados-o-que-s%C3%A3o-e-como-evit%C3%A1-los-43df4f49732b).
 
-Resumidamente, nesta primeira versão do modelo, julgo que poderia colocar em produção e ver como o modelo se comporta e no decorrer implementar as melhorias necessárias. Partimos com uma baseline de $67.12\%$, obtendo $87.63\%$ ao usar os melhores hiperparâmetros, por fim com toda a base de dados chegamos em $93\%$ de acurácia e $91\%$ de F1-Score na classe. Por fim, chegamos a uma taxa de Churn de ~$12\%$ este valor nos diz que devemos buscar manter os clientes, antes de realizarmos uma expansão da empresa.
+Resumidamente, nesta primeira versão do modelo, julgo que poderíamos colocar em produção e ver como o modelo se comporta e no decorrer implementar as melhorias necessárias. Partimos com uma baseline de $67.12\%$, obtendo $87.63\%$ ao usar os melhores hiperparâmetros, por fim com toda a base de dados chegamos em $93\%$ de acurácia e $91\%$ de F1-Score na classe. Por fim, chegamos a uma taxa de Churn de ~$12\%$ este valor nos diz que devemos buscar manter os clientes, antes de realizarmos uma expansão da empresa.
 
