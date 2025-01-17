@@ -1,0 +1,1 @@
+{"columns": ["CreditScore", "Geography", "Gender", "Age", "Tenure", "Balance", "NumOfProducts", "HasCrCard", "IsActiveMember", "EstimatedSalary"], "data": [[619, "France", "Female", 42, 2, 0.0, 1, 1, 1, 101348.88]]}
