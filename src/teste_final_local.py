@@ -5,15 +5,19 @@ from sklearn.datasets import make_regression
 import json
 from tabulate import tabulate
 
+import mlflow
+import os
+import pickle
+
+
 def main():
     print("Carregando o modelo...")
-    mlflow.set_tracking_uri("http://127.0.0.1:8080/")
-    loaded_model =  mlflow.sklearn.load_model("models:/Churn-Abandono/production")
+    # Caminho para o modelo local
+    model_pkl_path = "../model/model.pkl"
 
-    print()
-    print("Carregando as features...")
-    model_info = mlflow.models.get_model_info("models:/Churn-Abandono/production")
-    features = [i['name'] for i in json.loads(model_info.signature_dict['inputs'])]
+    # Carregar o modelo
+    with open(model_pkl_path, "rb") as f:
+        loaded_model = pickle.load(f)
 
     print()
     print("Carregando o banco de dados de teste final...")
@@ -23,7 +27,7 @@ def main():
 
     print()
     print("Prevendo o resultado...")
-    df_test_final['predictedValues'] = loaded_model.predict(df_test_final[features])
+    df_test_final['predictedValues'] = loaded_model.predict(df_test_final)
 
     df_test_final['Proba_0'] = loaded_model.predict_proba(df_test_final)[:,0]
     df_test_final['Proba_1'] = loaded_model.predict_proba(df_test_final)[:,1]
