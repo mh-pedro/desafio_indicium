@@ -316,20 +316,20 @@ Para entendermos o impacto do nosso modelo na saúde da empresa, iremos avaliar 
 Iremos tratar de uma situação simplificada da vida de um banco. Sabemos que toda empresa possui **custo** e **lucro** que impactam nas diretrizes. Com base nas variáveis que temos, podemos identificar alguns custos e lucros para o banco, são elas:
 
 - Número de Produtos:
-    - Cada produto gera um lucro médio de $\$50$ por mês.
-    - O custo de manutenção de cada produto é $\$10$ por mês.
+    - Cada produto gera um lucro médio de 50 por mês.
+    - O custo de manutenção de cada produto é 10 por mês.
 
 - Cartão de Crédito:
-    - Receita de $$20$ por mês em taxas de intercâmbio.
-    - Receita adicional de $\$15$ por mês com juros médios.
-    - Custo de manutenção do cartão é $\$5$ por mês.
+    - Receita de 20 por mês em taxas de intercâmbio.
+    - Receita adicional de 15 por mês com juros médios.
+    - Custo de manutenção do cartão é 5 por mês.
 
 - Saldo Médio na Conta:
     - O banco utiliza o saldo para empréstimos com uma margem de lucro de $3\%$ ao mês.
     - O custo operacional associado ao saldo é $1\%$ ao mês.
 
 - Estimativa de Salário:
-    - Clientes convertem $10\%$ do salário em produtos financeiros que geram o mesmo lucro médio de $\$50$ por produto.
+    - Clientes convertem $10\%$ do salário em produtos financeiros que geram o mesmo lucro médio de 50 por produto.
 
 Essas estimativas são de exemplificação. Contudo, poderíamos obter com o time financeiro os valores mais precisos. 
 
@@ -379,10 +379,10 @@ Cálculos por FP, FN e TP:
 
 Chegamos ao final do resultado financeiro. Esta seção nos mostrou o papel importante de termos um modelo preditivo.
 
-- A maioria do custo vem dos clientes que foram identificados erroneamente como clientes que iriam permanecer no banco, mas deixaram a empresa. No nosso exemplo, este valor é de $\$27$ milhões.
-- No nosso modelo, tivemos apenas 5 Falso Positivo, clientes que foram identificados que iriam ficar no banco, mas deixaram. No qual foram gastos $\$50$ por cliente em campanha para manter estes clientes, totalizando $\$250$.
-- Ganho por Clientes em risco identificados, subtraindo o lucro desses clientes pelo custo em campanha, chegamos ao valor de $\$108$ milhões.
-- O lucro estimado da empresa chegou por volta de $\$80$ milhões, nos mostrando o impacto de usarmos uma rede neural.
+- A maioria do custo vem dos clientes que foram identificados erroneamente como clientes que iriam permanecer no banco, mas deixaram a empresa. No nosso exemplo, este valor é de 27 milhões.
+- No nosso modelo, tivemos apenas 5 Falso Positivo, clientes que foram identificados que iriam ficar no banco, mas deixaram. No qual foram gastos 50 por cliente em campanha para manter estes clientes, totalizando 250.
+- Ganho por Clientes em risco identificados, subtraindo o lucro desses clientes pelo custo em campanha, chegamos ao valor de 108 milhões.
+- O lucro estimado da empresa chegou por volta de 80 milhões, nos mostrando o impacto de usarmos uma rede neural.
 ## Parte 6 - Aplicação 
 
 ### Parte 6.1 - MlFlow
