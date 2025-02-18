@@ -320,7 +320,7 @@ Iremos tratar de uma situação simplificada da vida de um banco. Sabemos que to
     - O custo de manutenção de cada produto é $\$10$ por mês.
 
 - Cartão de Crédito:
-    - Receita de $\$20$ por mês em taxas de intercâmbio.
+    - Receita de $$20$ por mês em taxas de intercâmbio.
     - Receita adicional de $\$15$ por mês com juros médios.
     - Custo de manutenção do cartão é $\$5$ por mês.
 
