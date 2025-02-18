@@ -325,8 +325,8 @@ Iremos tratar de uma situação simplificada da vida de um banco. Sabemos que to
     - Custo de manutenção do cartão é 5 por mês.
 
 - Saldo Médio na Conta:
-    - O banco utiliza o saldo para empréstimos com uma margem de lucro de $3%$ ao mês.
-    - O custo operacional associado ao saldo é $1%$ ao mês.
+    - O banco utiliza o saldo para empréstimos com uma margem de lucro de 3% ao mês.
+    - O custo operacional associado ao saldo é 1% ao mês.
 
 - Estimativa de Salário:
     - Clientes convertem 10% do salário em produtos financeiros que geram o mesmo lucro médio de 50 por produto.
@@ -423,13 +423,13 @@ Visualizando distribuição das previsões:
   <img src="./imagens/dist_prob_previstas.png" alt="figura 9" />
 </div>
 
-Estes valores indicam-nos que o nosso modelo por mais que realize as predições, é possível notar que para classe majoritária (Classe $0$), mais de $50%$ das predições foram feitas com uma probabilidade entre $90%$ à $100%$. Já na classe minoritária, não temos o mesmo cenário. Cada intervalo de $10%$ representam por volta de $20%$ dos dados previsto, o que nos levar a concluir que o nosso modelo ainda precisa de ajustes.
+Estes valores indicam-nos que o nosso modelo por mais que realize as predições, é possível notar que para classe majoritária (Classe $0$), mais de 50% das predições foram feitas com uma probabilidade entre 90% à 100%. Já na classe minoritária, não temos o mesmo cenário. Cada intervalo de 10% representam por volta de 20% dos dados previsto, o que nos levar a concluir que o nosso modelo ainda precisa de ajustes.
 
 Outra métrica interessante para analisar é a entropia, para este modelo, a entropia média das previsões é de $0.37$. Este valor nos indica a incerteza das previsões, quanto mais próximo de $0$ mais certo o modelo, o nosso valor está abaixo do $0.5$, indicando que a maioria das previsões tem probabilidades longe de $0.5$, indicando confiança, contudo este valor nos sugere que o modelo ainda precisa ser aprimorado.
 
 # Conclusão 
 
-Chegamos ao final do desafio com um resultado satisfatório, o nosso modelo está superior a baseline e obteve uma acurácia de $93%$. É importante notar que os dados já estavam bem tratados, não possuindo **NaN**. Num cenário real, seria necessário criar e atuar com mais tratamento.
+Chegamos ao final do desafio com um resultado satisfatório, o nosso modelo está superior a baseline e obteve uma acurácia de 93%. É importante notar que os dados já estavam bem tratados, não possuindo **NaN**. Num cenário real, seria necessário criar e atuar com mais tratamento.
 
 Há ainda diversos pontos que podem ser melhorado no modelo, como por exemplo:
 
