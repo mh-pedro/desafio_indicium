@@ -106,7 +106,7 @@ Ele consiste nas seguintes etapas:
 
 ### Parte 1 - Entendimento de negócio
 
-Como mencionado no início do documento, estamos tratando de um problema de **Churn**, ou seja, o objetivo principal em problemas como este é determinar se um cliente irá **sair** ou **manter-se**. Isso envolve prever uma variável categórica binária, o que nos levar a lidar com um problema de **classificação binária**. Portanto, queremos criar um modelo preditivo capaz de prever se um cliente vai abandonar o banco ou continuar com ele. Também queremos identificar qual é a taxa de Churn que o nosso modelo prevê, se está acima ou abaixo dos $5\%$.
+Como mencionado no início do documento, estamos tratando de um problema de **Churn**, ou seja, o objetivo principal em problemas como este é determinar se um cliente irá **sair** ou **manter-se**. Isso envolve prever uma variável categórica binária, o que nos levar a lidar com um problema de **classificação binária**. Portanto, queremos criar um modelo preditivo capaz de prever se um cliente vai abandonar o banco ou continuar com ele. Também queremos identificar qual é a taxa de Churn que o nosso modelo prevê, se está acima ou abaixo dos $5%$.
 
 ### Parte 2 - Compreensão dos Dados:
 
@@ -137,7 +137,7 @@ Durante a compreensão dos dados, identificamos que não há dados ausentes e a 
 
 Inicialmente separamos as variáveis numéricas e categóricas.
 
-Para as variáveis categóricas, quando olhamos para a quantidade e a $\%$ do total, temos as seguintes distribuições:
+Para as variáveis categóricas, quando olhamos para a quantidade e a $%$ do total, temos as seguintes distribuições:
 
 <div style="text-align: center;">
   <img src="./imagens/clientes_por_variavel_valor_total.png" alt="figura 2" />
@@ -153,7 +153,7 @@ Seguimos adiante e olhamos para os valores proporcionais, como podemos ver abaix
 
 Se comparamos os gráficos por valores totais e por proporção, temos:
 
-- No caso de clientes por Gênero, a taxa de cancelamento por valores totais é de $11.4\%$ para o gênero feminino, enquanto para o mesmo gênero em valores proporcionais chega a $25\%$. Este resultado indica que proporcionalmente, temos que 1/4 do gênero feminino realizam o cancelamento. **Obs.:** É necessário tomarmos cuidado quando realizamos análises. Não queremos reforçar preconceitos e incluir um viés na análise preditiva. Note que a variável categórica **Gênero** nos indica que, proporcionalmente, mulheres tem a maior taxa de cancelamento. Este resultado não deve ser usado com o intuito de impedir o acesso deste gênero ao banco, mas sim de entender o motivo da evasão.
+- No caso de clientes por Gênero, a taxa de cancelamento por valores totais é de $11.4%$ para o gênero feminino, enquanto para o mesmo gênero em valores proporcionais chega a $25%$. Este resultado indica que proporcionalmente, temos que 1/4 do gênero feminino realizam o cancelamento. **Obs.:** É necessário tomarmos cuidado quando realizamos análises. Não queremos reforçar preconceitos e incluir um viés na análise preditiva. Note que a variável categórica **Gênero** nos indica que, proporcionalmente, mulheres tem a maior taxa de cancelamento. Este resultado não deve ser usado com o intuito de impedir o acesso deste gênero ao banco, mas sim de entender o motivo da evasão.
 
 - Para clientes que possuem cartão de crédito, em valores totais é possível ver que número de clientes que não cancelam é bem maior comparado aos que cancelam. Contudo, quando olhamos proporcionalmente, a taxa de cancelamento para clientes que possuem ou não possuem cartão é a mesma. Este resultado pode nos indicar que esta variável categórica não terá tanto papel na identificação dos usuários durante a predição. 
 
@@ -233,9 +233,9 @@ O intuito de criarmos uma baseline é para termos um ponto de partida ao avaliar
 - Odds de Adivinhar Corretamente a Classe Minoritária: $0.20742857142857143^2 = 0.0430$
 - Odds de Adivinhar Corretamente a Classe Majoritária: $0.7925714285714286^2 = 0.6282$
 
-- Baseline Ponderado: $0.6712$ ou $67.12\%$
+- Baseline Ponderado: $0.6712$ ou $67.12%$
 
-Note que a nossa Baseline Ponderada é de $67,12\%$ e a ZeroR Baseline é de $79,26\%$ estes valores serão os parâmetros de avaliação inicial.
+Note que a nossa Baseline Ponderada é de $67,12%$ e a ZeroR Baseline é de $79,26%$ estes valores serão os parâmetros de avaliação inicial.
 
 ### Parte 3.2 - Transformação nos dados
 
@@ -308,7 +308,7 @@ Observe que para os modelos Gradient Boosting e XGBoost, a matriz de confusão �
 
 Já o modelo Random Forest, tem um baixo número de Falso Positivos na Classe $0$ e o número de Falso Negativos na Classe $1$ também é bem menor ao compararmos com os outros modelos.
 
-Recapitulando de onde partirmos e até onde chegamos. Iniciamos com uma baseline de $67.12\%$, obtendo $87.63\%$ ao usar os melhores hiperparâmetros e agora com toda a base de dados chegamos em $93\%$ de acurácia e $91\%$ de F1-Score na classe minoritária para o modelo `RandomForestClassifier`, o que nos leva a escolher este modelo.
+Recapitulando de onde partirmos e até onde chegamos. Iniciamos com uma baseline de 67.12%, obtendo 87.63% ao usar os melhores hiperparâmetros e agora com toda a base de dados chegamos em 93% de acurácia e 91% de F1-Score na classe minoritária para o modelo `RandomForestClassifier`, o que nos leva a escolher este modelo.
 ### Parte 5.1 - Resultado financeiro (Modelo Random Forest)
 
 Para entendermos o impacto do nosso modelo na saúde da empresa, iremos avaliar como o modelo performa em termos de resultados financeiros na base de teste.
@@ -325,11 +325,11 @@ Iremos tratar de uma situação simplificada da vida de um banco. Sabemos que to
     - Custo de manutenção do cartão é 5 por mês.
 
 - Saldo Médio na Conta:
-    - O banco utiliza o saldo para empréstimos com uma margem de lucro de $3\%$ ao mês.
-    - O custo operacional associado ao saldo é $1\%$ ao mês.
+    - O banco utiliza o saldo para empréstimos com uma margem de lucro de $3%$ ao mês.
+    - O custo operacional associado ao saldo é $1%$ ao mês.
 
 - Estimativa de Salário:
-    - Clientes convertem $10\%$ do salário em produtos financeiros que geram o mesmo lucro médio de 50 por produto.
+    - Clientes convertem 10% do salário em produtos financeiros que geram o mesmo lucro médio de 50 por produto.
 
 Essas estimativas são de exemplificação. Contudo, poderíamos obter com o time financeiro os valores mais precisos. 
 
@@ -423,13 +423,13 @@ Visualizando distribuição das previsões:
   <img src="./imagens/dist_prob_previstas.png" alt="figura 9" />
 </div>
 
-Estes valores indicam-nos que o nosso modelo por mais que realize as predições, é possível notar que para classe majoritária (Classe $0$), mais de $50\%$ das predições foram feitas com uma probabilidade entre $90\%$ à $100\%$. Já na classe minoritária, não temos o mesmo cenário. Cada intervalo de $10\%$ representam por volta de $20\%$ dos dados previsto, o que nos levar a concluir que o nosso modelo ainda precisa de ajustes.
+Estes valores indicam-nos que o nosso modelo por mais que realize as predições, é possível notar que para classe majoritária (Classe $0$), mais de $50%$ das predições foram feitas com uma probabilidade entre $90%$ à $100%$. Já na classe minoritária, não temos o mesmo cenário. Cada intervalo de $10%$ representam por volta de $20%$ dos dados previsto, o que nos levar a concluir que o nosso modelo ainda precisa de ajustes.
 
 Outra métrica interessante para analisar é a entropia, para este modelo, a entropia média das previsões é de $0.37$. Este valor nos indica a incerteza das previsões, quanto mais próximo de $0$ mais certo o modelo, o nosso valor está abaixo do $0.5$, indicando que a maioria das previsões tem probabilidades longe de $0.5$, indicando confiança, contudo este valor nos sugere que o modelo ainda precisa ser aprimorado.
 
 # Conclusão 
 
-Chegamos ao final do desafio com um resultado satisfatório, o nosso modelo está superior a baseline e obteve uma acurácia de $93\%$. É importante notar que os dados já estavam bem tratados, não possuindo **NaN**. Num cenário real, seria necessário criar e atuar com mais tratamento.
+Chegamos ao final do desafio com um resultado satisfatório, o nosso modelo está superior a baseline e obteve uma acurácia de $93%$. É importante notar que os dados já estavam bem tratados, não possuindo **NaN**. Num cenário real, seria necessário criar e atuar com mais tratamento.
 
 Há ainda diversos pontos que podem ser melhorado no modelo, como por exemplo:
 
@@ -443,7 +443,7 @@ Há ainda diversos pontos que podem ser melhorado no modelo, como por exemplo:
 
   - **Desbalanceamento das classes:** O desbalanceamento das classes alvo pode ter afetado significativamente o nosso modelo. Uma forma de lidar, seria utilizar o Undersampling, para deduzir o número de observações da classe majoritária e aumentar o número de observações da classe minoritária. Ao contrário do Undersampling, poderíamos criar dados sinteticamente por meio das observações da classe minoritária por meio do Oversampling, tais técnicas podem serem vistas em [Dados Desbalanceados — O que são e como lidar com eles](https://medium.com/turing-talks/dados-desbalanceados-o-que-s%C3%A3o-e-como-evit%C3%A1-los-43df4f49732b).
 
-Resumidamente, nesta primeira versão do modelo, julgo que poderíamos colocar em produção e ver como o modelo se comporta e no decorrer implementar as melhorias necessárias. Partimos com uma baseline de $67.12\%$, obtendo $87.63\%$ ao usar os melhores hiperparâmetros, por fim com toda a base de dados chegamos em $93\%$ de acurácia e $91\%$ de F1-Score na classe. Por fim, chegamos a uma taxa de Churn de ~$12\%$ este valor nos diz que devemos buscar manter os clientes, antes de realizarmos uma expansão da empresa.
+Resumidamente, nesta primeira versão do modelo, julgo que poderíamos colocar em produção e ver como o modelo se comporta e no decorrer implementar as melhorias necessárias. Partimos com uma baseline de $67.12%$, obtendo $87.63%$ ao usar os melhores hiperparâmetros, por fim com toda a base de dados chegamos em $93%$ de acurácia e $91%$ de F1-Score na classe. Por fim, chegamos a uma taxa de Churn de ~$12%$ este valor nos diz que devemos buscar manter os clientes, antes de realizarmos uma expansão da empresa.
 
 
 
